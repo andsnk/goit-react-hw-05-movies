@@ -34,19 +34,24 @@ const Cast = ({ baseImgUrl }) => {
       {error && { error }}
 
       <ul>
-        {casts.map(({ id, name, character, profile_path }) => {
-          const imageUrl = profile_path
-            ? `${baseImgUrl}${profile_path}`
-            : `${process.env.PUBLIC_URL}/notfound.jpg`;
-          return (
-            <li key={id}>
-              <img src={imageUrl} alt={name} height={'300px'} />
+        {' '}
+        {casts.length === 0 ? (
+          <p>We don’t have any casts for this movie.</p>
+        ) : (
+          casts.map(({ id, name, character, profile_path }) => {
+            const imageUrl = profile_path
+              ? `${baseImgUrl}${profile_path}`
+              : `${process.env.PUBLIC_URL}/notfound.jpg`;
+            return (
+              <li key={id}>
+                <img src={imageUrl} alt={name} height={'300px'} />
 
-              <p>{name}</p>
-              <p>Character: {character}</p>
-            </li>
-          );
-        })}
+                <p>{name}</p>
+                <p>Character: {character}</p>
+              </li>
+            );
+          })
+        )}
       </ul>
     </div>
   );
