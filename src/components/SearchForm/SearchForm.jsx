@@ -1,30 +1,40 @@
-// import React from 'react';
-// import { useState } from 'react';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
-// const SearchForm = () => {
-//   const [query, setQuery] = useState('');
+const SearchForm = ({ onSubmit }) => {
+  const [value, setValue] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
 
-//   const handleInputChange = event => {
-//     setQuery(event.target.value);
-//   };
+  const query = searchParams.get('search');
 
-//   const handleSubmit = event => {
-//     event.preventDefault();
-//   };
+  useEffect(() => {
+    value !== query && setValue(query);
+  }, [query, value]);
 
-//   return (
-//     <div>
-//       <form onSubmit={handleSubmit}>
-//         <input
-//           type="text"
-//           value={query}
-//           onChange={handleInputChange}
-//           placeholder="Search for movies..."
-//         />
-//         <button type="submit">Search</button>
-//       </form>
-//     </div>
-//   );
-// };
+  const handleChange = ({ target: { value } }) => {
+    setSearchParams({ search: value });
+  };
 
-// export default SearchForm;
+  const handleSubmit = e => {
+    e.preventDefault();
+    onSubmit(query);
+  };
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          onChange={handleChange}
+          name="title"
+          value={value}
+          placeholder="Search for movies..."
+        />
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  );
+};
+
+export default SearchForm;
