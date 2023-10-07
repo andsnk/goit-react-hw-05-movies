@@ -14,7 +14,26 @@ code {
     monospace;
 }
 
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+p {
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  display: block;
+}
 .active {
-  color: purple !important;
-  text-decoration: underline !important;
+  color: #a41047;
 }

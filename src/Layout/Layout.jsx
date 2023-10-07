@@ -1,39 +1,21 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
+import css from './Layout.module.css';
 // import css from './Layout.module.css';
 
 const Layout = () => {
-  const headerStyle = {
-    padding: '10px',
-    textAlign: 'center',
-    boxShadow: ' 4px 4px 8px 2px rgba(0, 0, 0, 0.2)',
-    marginBottom: '20px',
-  };
-
-  const navStyle = {
-    listStyleType: 'none',
-    padding: '0',
-    display: 'flex',
-  };
-
-  const linkStyle = {
-    textDecoration: 'none',
-    margin: '0 10px',
-    color: 'gray',
-  };
-
   return (
     <>
-      <header style={headerStyle}>
+      <header className={css.header}>
         <nav>
-          <ul style={navStyle}>
+          <ul className={css.list}>
             <li>
-              <NavLink to="/" style={linkStyle}>
+              <NavLink to="/" className={css.link}>
                 Home
               </NavLink>
             </li>
             <li>
-              <NavLink to="movies " style={linkStyle}>
+              <NavLink to="movies " className={css.link}>
                 Movies
               </NavLink>
             </li>

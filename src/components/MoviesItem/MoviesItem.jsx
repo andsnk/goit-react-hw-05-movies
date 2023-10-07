@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { getMovieById } from 'api/api';
 import Loader from 'components/Loader/Loader';
 
@@ -8,6 +8,13 @@ const MoviesItem = ({ baseImgUrl }) => {
   const [movie, setMovie] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleGoBack = () => {
+    navigate(location?.state?.from ?? '/');
+  };
 
   useEffect(() => {
     async function fetchMovieData() {
@@ -42,6 +49,7 @@ const MoviesItem = ({ baseImgUrl }) => {
 
   return (
     <div>
+      <button onClick={handleGoBack}>Go back</button>
       {isLoading && <Loader />}
       {error && { error }}
       <img src={`${baseImgUrl}${poster_path}`} width={'200px'} alt={title} />
@@ -58,10 +66,14 @@ const MoviesItem = ({ baseImgUrl }) => {
       <p>Additional information</p>
       <ul>
         <li>
-          <Link to="cast">Cast</Link>
+          <Link to="cast" state={{ from: location?.state?.from ?? '/' }}>
+            Cast
+          </Link>
         </li>
         <li>
-          <Link to="reviews">Review</Link>
+          <Link to="reviews" state={{ from: location?.state?.from ?? '/' }}>
+            Review
+          </Link>
         </li>
       </ul>
     </div>
