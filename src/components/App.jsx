@@ -22,7 +22,7 @@ const App = () => {
           <Route path="cast" element={<Cast baseImgUrl={baseImgUrl} />} />
           <Route path="reviews" element={<Reviews />} />
         </Route>
-        {/* не забудь добавити 404 */}
+        <Route path="*" element={<HomePage />} />
       </Route>
     </Routes>
   );

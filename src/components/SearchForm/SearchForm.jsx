@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import css from './SearchForm.module.css';
+import Notiflix from 'notiflix';
 
 const SearchForm = ({ onSubmit }) => {
   const [value, setValue] = useState('');
@@ -11,7 +12,11 @@ const SearchForm = ({ onSubmit }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    if (value.trim() === '') {
+      return Notiflix.Notify.warning('Enter the text in the search field');
+    }
     onSubmit(value);
+    setValue('');
   };
 
   return (

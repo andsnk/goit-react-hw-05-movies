@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import css from './MoviesList.module.css';
+import Notiflix from 'notiflix';
 
 const MoviesList = () => {
   const [movies, setMovies] = useState([]);
@@ -18,10 +19,10 @@ const MoviesList = () => {
         setIsLoading(true);
         setError('');
         const moviesData = await getAllMovie();
-        console.log(moviesData);
         setMovies(moviesData.results);
       } catch (error) {
         setError(error.message);
+        Notiflix.Notify.failure(error.message);
       } finally {
         setIsLoading(false);
       }

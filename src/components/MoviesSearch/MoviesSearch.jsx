@@ -4,6 +4,7 @@ import { getSearchMovie } from 'api/api';
 import Loader from 'components/Loader/Loader';
 import SearchForm from 'components/SearchForm/SearchForm';
 import css from './MoviesSearch.module.css';
+import Notiflix from 'notiflix';
 
 const MovieSearch = () => {
   const [error, setError] = useState('');
@@ -24,11 +25,13 @@ const MovieSearch = () => {
         setIsLoading(true);
         setError('');
         const data = await getSearchMovie(query);
-        console.log(data.results);
+        if (data.results.length === 0) {
+          return Notiflix.Notify.info('Movies not found');
+        }
         setMovies(data.results);
       } catch (error) {
-        console.error(error);
-        setError('There was an error fetching the search results.');
+        setError(error.message);
+        Notiflix.Notify.failure(error.message);
       } finally {
         setIsLoading(false);
       }
@@ -39,10 +42,9 @@ const MovieSearch = () => {
 
   return (
     <div>
-      {error && <p>error</p>}
       <SearchForm onSubmit={handleSetSearchQuery} />
       {isLoading && <Loader />}
-      {movies.length > 0 ? (
+      {query && movies.length > 0 && !error ? (
         <div className={css.searchMoviesWrap}>
           <h2 className={css.searchMoviesTitle}>Search Results</h2>
           <ul>
@@ -59,11 +61,8 @@ const MovieSearch = () => {
             ))}
           </ul>
         </div>
-      ) : (
-        <p>Not data found</p>
-      )}
+      ) : null}
     </div>
   );
 };
-
 export default MovieSearch;

@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { getMovieById } from 'api/api';
 import Loader from 'components/Loader/Loader';
 import css from './MoviesItem.module.css';
+import Notiflix from 'notiflix';
 
 const MoviesItem = ({ baseImgUrl }) => {
   const { id } = useParams();
@@ -23,11 +24,10 @@ const MoviesItem = ({ baseImgUrl }) => {
         setIsLoading(true);
         setError('');
         const movieData = await getMovieById(id);
-        // console.log(movieData);
         setMovie(movieData);
       } catch (error) {
         setError(error.message);
-        console.error('Error:', error);
+        Notiflix.Notify.failure(error.message);
       } finally {
         setIsLoading(false);
       }
@@ -35,10 +35,6 @@ const MoviesItem = ({ baseImgUrl }) => {
 
     fetchMovieData();
   }, [id]);
-
-  // if (isLoading) {
-  //   return <Loader />;
-  // }
 
   if (!movie) {
     return <div>Movie not found</div>;
