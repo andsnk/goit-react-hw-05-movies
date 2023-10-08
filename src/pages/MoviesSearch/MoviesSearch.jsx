@@ -26,7 +26,8 @@ const MovieSearch = () => {
         setError('');
         const data = await getSearchMovie(query);
         if (data.results.length === 0) {
-          return Notiflix.Notify.info('Movies not found');
+          Notiflix.Notify.info('Movies not found');
+          setMovies([]);
         }
         setMovies(data.results);
       } catch (error) {
