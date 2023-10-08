@@ -3,6 +3,7 @@ import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { getSearchMovie } from 'api/api';
 import Loader from 'components/Loader/Loader';
 import SearchForm from 'components/SearchForm/SearchForm';
+import css from './MoviesSearch.module.css';
 
 const MovieSearch = () => {
   const [error, setError] = useState('');
@@ -42,12 +43,16 @@ const MovieSearch = () => {
       <SearchForm onSubmit={handleSetSearchQuery} />
       {isLoading && <Loader />}
       {movies.length > 0 ? (
-        <div>
-          <h2>Search Results:</h2>
+        <div className={css.searchMoviesWrap}>
+          <h2 className={css.searchMoviesTitle}>Search Results</h2>
           <ul>
             {movies.map(movie => (
-              <li key={movie.id}>
-                <Link to={`${movie.id}`} state={{ from: location }}>
+              <li className={css.searchMoviesItem} key={movie.id}>
+                <Link
+                  className={css.searchMoviesLink}
+                  to={`${movie.id}`}
+                  state={{ from: location }}
+                >
                   {movie.title}
                 </Link>
               </li>

@@ -1,9 +1,11 @@
 import { getMovieCast } from 'api/api';
+
 // import Loader from 'components/Loader/Loader';
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import css from './Cast.module.css';
 
 const Cast = ({ baseImgUrl }) => {
   const { id } = useParams();
@@ -29,12 +31,11 @@ const Cast = ({ baseImgUrl }) => {
   }, [id]);
 
   return (
-    <div>
+    <div className={css.castWrap}>
       {/* {isLoading && <Loader />} */}
       {error && { error }}
 
-      <ul>
-        {' '}
+      <ul className={css.castList}>
         {casts.length === 0 ? (
           <p>We don’t have any casts for this movie.</p>
         ) : (

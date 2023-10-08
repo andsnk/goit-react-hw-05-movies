@@ -16,15 +16,18 @@ const SearchForm = ({ onSubmit }) => {
 
   return (
     <div className={css.searchWrap}>
-      <form onSubmit={handleSubmit}>
+      <form className={css.searchForm} onSubmit={handleSubmit}>
         <input
+          className={css.searchInput}
           type="text"
           onChange={handleChange}
           name="title"
           value={value}
           placeholder="Search for movies..."
         />
-        <button type="submit">Search</button>
+        <button className={css.searchBtn} type="submit">
+          Search
+        </button>
       </form>
     </div>
   );
