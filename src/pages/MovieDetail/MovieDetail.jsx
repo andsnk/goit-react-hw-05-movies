@@ -72,7 +72,7 @@ const MovieDetail = ({ baseImgUrl }) => {
               <h2 className={css.moviesTitle}>Genres</h2>
               <ul>
                 {genres &&
-                  genres.map(genre => <li key={genre.id}>{genre.name}</li>)}
+                  genres.map(genre => <li key={genre.id}>#{genre.name}</li>)}
               </ul>
 
               <h2 className={css.moviesTitle}>Additional information</h2>
